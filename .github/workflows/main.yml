@@ -31,14 +31,19 @@ jobs:
         run: |
           python start.py  # Run your start.py script to create files
 
-      # Step 5: Commit and push changes back to GitHub
-      - name: Commit and Push Changes
+      # Step 5: Initialize the Git repository if not already initialized
+      - name: Initialize Git Repository
         run: |
+          git init
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
+
+      # Step 6: Commit and Push Changes
+      - name: Commit and Push Changes
+        run: |
           git add .
           git commit -m "Auto-generated files by GitHub Actions"
-          git push
+          git push --set-upstream origin main --force  # Use --force if you encounter issues with initial commits
 
   deploy:
     runs-on: ubuntu-latest
